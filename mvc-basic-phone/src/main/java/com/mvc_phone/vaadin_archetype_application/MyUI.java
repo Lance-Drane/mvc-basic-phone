@@ -357,6 +357,22 @@ public class MyUI extends UI {
 		
 	}
 	
+	public void setCountryField(String tempStr) {
+		countryCodeField.setValue(tempStr);
+	}
+	
+	public void setAreaField(String tempStr) {
+		areaCodeField.setValue(tempStr);
+	}
+	
+	public void setPrefixField(String tempStr) {
+		prefixCodeField.setValue(tempStr);
+	}
+	
+	public void setLineField(String tempStr) {
+		lineNumberField.setValue(tempStr);
+	}
+	
 	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
 	@VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
 	public static class MyUIServlet extends VaadinServlet {

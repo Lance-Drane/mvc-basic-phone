@@ -29,6 +29,8 @@ public class Controller {
         phoneNum.append("6");
         System.out.println(phoneNum.getCountryCode() + " " + phoneNum.getAreaCode());
         
+        myUI.setAreaField(phoneNum.getAreaCode());
+        
     }
     
     class VolumeListener implements ActionListener{
