@@ -1,19 +1,43 @@
 package com.mvc_phone.vaadin_archetype_application;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class Controller {
 
     private Model model;
     private MyUI myUI;
-    PhoneNumber phoneNum = new PhoneNumber();
+//    public PhoneNumber phoneNum = new PhoneNumber();
     
     public Controller(Model model) {
     	
         this.model = model;
-        //myUI = new myUI(this, model);
+        //myUI = new MyUI(this, model);
+        
+        PhoneNumber phoneNum = new PhoneNumber();
+        
+        System.out.println("in the controller uhhh");
+        System.out.println(phoneNum.getCountryCode());
+        System.out.println(phoneNum.getAreaCode());
+        System.out.println(phoneNum.getPrefixCode());
+        phoneNum.setCountryCode("4");
+        System.out.println("NOW: " + phoneNum.getCountryCode());
+        phoneNum.setAreaCode("423");
+        System.out.println("AGAIN: " + phoneNum.getAreaCode());
+        phoneNum.snip();
+        phoneNum.append("6");
+        System.out.println(phoneNum.getCountryCode() + " " + phoneNum.getAreaCode());
+        
     }
-	
+    
+    class VolumeListener implements ActionListener{
+    	
+    	public void actionPerformed(ActionEvent e) {
+    		
+    	}
+    	
+    }
 	/*
 	
 	public void createNewPhoneNumber() {

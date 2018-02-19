@@ -31,7 +31,7 @@ public class PhoneNumber {
 		return countryCode;
 	}
 
-	public void setCountryCode(String string)
+	public void setCountryCode(String countryCode)
 	{
 		this.countryCode = countryCode;
 	}
@@ -49,7 +49,7 @@ public class PhoneNumber {
 		return areaCode;
 	}
 
-	public void setAreaCode(String string)
+	public void setAreaCode(String areaCode)
 	{
 		this.areaCode = areaCode;
 	}	
@@ -66,7 +66,7 @@ public class PhoneNumber {
 		return prefixCode;
 	}
 
-	public void setPrefixCode(String string)
+	public void setPrefixCode(String prefixCode)
 	{
 		this.prefixCode = prefixCode;
 	}	
@@ -83,7 +83,7 @@ public class PhoneNumber {
 		return lineNumber;
 	}
 
-	public void setLineNumber(String string)
+	public void setLineNumber(String lineNumber)
 	{
 		this.lineNumber = lineNumber;
 	}	

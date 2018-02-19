@@ -35,13 +35,13 @@ import com.vaadin.ui.VerticalLayout;
 public class MyUI extends UI {
 
 	//first line
-	final Label beginningLabel = new Label("+");
+	final static Label beginningLabel = new Label("+");
 	final TextField countryCodeField = new TextField();
-	final Label labelSeparator1 = new Label("- (");
+	final static Label labelSeparator1 = new Label("- (");
 	final TextField areaCodeField = new TextField();
-	final Label labelSeparator2 = new Label(") -");
+	final static Label labelSeparator2 = new Label(") -");
 	final TextField prefixCodeField = new TextField();
-	final Label labelSeparator3 = new Label("-");
+	final static Label labelSeparator3 = new Label("-");
 	final TextField lineNumberField = new TextField();		
 	final Button buttonDelete = new Button("DELETE THIS");
 	
@@ -79,7 +79,8 @@ public class MyUI extends UI {
 		//MyUI myUI = new MyUI();
         Model myModel = new Model();
         //Controller myController = new Controller(myUI,myModel); //can't use myUI as variable
-        Controller myController = new Controller(myModel);
+        //Controller myController = new Controller(myModel);
+		Controller myController = new Controller(myModel);
 		
 	}
 	
@@ -157,25 +158,12 @@ public class MyUI extends UI {
 		
 		startButton.addClickListener(e -> {
 			
-			//old code
-			/*
-			if (lineNumberField.getValue().length() == 4)
-			{
-				//callStatus = true;
-			}
-			*/
-			
-			//new code, using the phone number class
-			/*
-			
-			 */
 		});
 		
 		endButton.addClickListener(e -> {
-			
-			//callStatus = false;
 		
 		});
+		
 		
 		button1.addClickListener(e -> {
 			if (countryCodeField.getValue().length() != 1) {
@@ -183,7 +171,7 @@ public class MyUI extends UI {
 				//countryCodeField.setValue(countryCodeField.getValue() + "button.getCaption()");
 			} else if (areaCodeField.getValue().length() != 3) {
 				areaCodeField.setValue(areaCodeField.getValue() + "1");
-				/*areaCodeField.setValue(areaCodeField.getValue() + "button.getCaption()");*/
+				//areaCodeField.setValue(areaCodeField.getValue() + "button.getCaption()");
 			} else if (prefixCodeField.getValue().length() != 3) {
 				prefixCodeField.setValue(prefixCodeField.getValue() + "1");
 				//prefixCodeField.setValue(prefixCodeField.getValue() + "button.getCaption()");	
