@@ -1,5 +1,7 @@
 package com.mvc_phone.vaadin_archetype_application;
 
+import java.awt.event.ActionListener;
+
 import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.Theme;
@@ -7,6 +9,7 @@ import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
@@ -73,6 +76,10 @@ public class MyUI extends UI {
 		initLayout(); //since the layout will be static, just put everything relevant to it in the method
 		initModifications(); //
 		initListeners(); //TODO: move these to Controller
+		//MyUI myUI = new MyUI();
+        Model myModel = new Model();
+        //Controller myController = new Controller(myUI,myModel); //can't use myUI as variable
+        Controller myController = new Controller(myModel);
 		
 	}
 	
@@ -119,9 +126,18 @@ public class MyUI extends UI {
 		lineNumberField.setReadOnly(true);
 		
 	}
+
+	/*	
+	public void addKeypadListeners (ActionListener listenForAnswerButton) {
+
+			button1.addActionListener(listenForAnswerButton);
+			//answerButton2.addActionListener(listenForAnswerButton);
+	}
+		*/
+	
 	
 	private void initListeners() {
-		
+				
 		buttonDelete.addClickListener(e -> {
 
 			// logic chains to ensure that values to the right are deleted first
@@ -141,11 +157,18 @@ public class MyUI extends UI {
 		
 		startButton.addClickListener(e -> {
 			
+			//old code
+			/*
 			if (lineNumberField.getValue().length() == 4)
 			{
 				//callStatus = true;
 			}
+			*/
 			
+			//new code, using the phone number class
+			/*
+			
+			 */
 		});
 		
 		endButton.addClickListener(e -> {
@@ -326,25 +349,25 @@ public class MyUI extends UI {
 		
 		volumeDown.addClickListener(e -> {
 			
-			if (Integer.parseInt(volumeDisplay.getCaption()) > 0)
+			if (Integer.parseInt(volumeDisplay.getValue()) > 0)
 			{
-				volumeDisplay.setCaption(Integer.toString(Integer.parseInt(volumeDisplay.getCaption()) - 1));
+				volumeDisplay.setValue(Integer.toString(Integer.parseInt(volumeDisplay.getValue()) - 1));
 			}
 			
 		});
 		
 		volumeUp.addClickListener(e -> {
 			
-			if (Integer.parseInt(volumeDisplay.getCaption()) < 10)
+			if (Integer.parseInt(volumeDisplay.getValue()) < 10)
 			{
-				volumeDisplay.setCaption(Integer.toString(Integer.parseInt(volumeDisplay.getCaption()) + 1));
+				volumeDisplay.setValue(Integer.toString(Integer.parseInt(volumeDisplay.getValue()) + 1));
 			}
 			
 		});		
 		
-	}
 
-	
+		
+	}
 	
 	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
 	@VaadinServletConfiguration(ui = MyUI.class, productionMode = false)

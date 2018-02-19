@@ -4,10 +4,17 @@ import java.util.Random;
 
 public class Controller {
 
-	
+    private Model model;
+    private MyUI myUI;
+    PhoneNumber phoneNum = new PhoneNumber();
+    
+    public Controller(Model model) {
+    	
+        this.model = model;
+        //myUI = new myUI(this, model);
+    }
 	
 	/*
-	PhoneNumber phoneNumber = new PhoneNumber();
 	
 	public void createNewPhoneNumber() {
 	
