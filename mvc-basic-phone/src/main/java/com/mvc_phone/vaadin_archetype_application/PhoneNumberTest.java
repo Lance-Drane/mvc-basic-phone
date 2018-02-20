@@ -102,7 +102,6 @@ class PhoneNumberTest {
 		myUI.setVolumeDown();
 		assertEquals("4", myUI.getVolume());
 		
-		//assertEquals("1", myUI.getCountryField()); //
 		myUI.setCountryField("5");
 		assertEquals("5", myUI.getCountryField());
 	}

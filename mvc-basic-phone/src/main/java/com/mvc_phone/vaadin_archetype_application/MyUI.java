@@ -69,7 +69,7 @@ public class MyUI extends UI {
 	final Label volumeDisplay = new Label("5");
 	final Button volumeUp = new Button("/|\\");
 	
-	private MyUI myUI;
+	//private MyUI myUI;
 	private Model model;
 	private Controller controller;
 	
@@ -86,6 +86,17 @@ public class MyUI extends UI {
 		initListeners(); //TODO: move these to Controller
         			
 	}
+	
+	/*
+	public myUI(Controller controller, Model model) {
+		
+		this.model = model;
+		this.controller = controller;
+		initLayout(); //since the layout will be static, just put everything relevant to it in the method
+		initModifications(); //
+		initListeners(); //TODO: move these to Controller
+	}
+	*/
 	
 	private void initLayout() {
 		// master layout
@@ -168,73 +179,73 @@ public class MyUI extends UI {
 		  
 		button1.addClickListener(e -> {
 			
-			changeNumber(numberEntered(e));
+			keypadPressed(getButtonPressed(e));
 			
 		});
 
 		button2.addClickListener(e -> {
 			
-			changeNumber(numberEntered(e));
+			keypadPressed(getButtonPressed(e));
 			
 		});
 
 		button3.addClickListener(e -> {
 			
-			changeNumber(numberEntered(e));
+			keypadPressed(getButtonPressed(e));
 			
 		});
 
 		button4.addClickListener(e -> {
 			
-			changeNumber(numberEntered(e));
+			keypadPressed(getButtonPressed(e));
 			
 		});
 
 		button5.addClickListener(e -> {
 			
-			changeNumber(numberEntered(e));
+			keypadPressed(getButtonPressed(e));
 			
 		});
 
 		button6.addClickListener(e -> {
 			
-			changeNumber(numberEntered(e));
+			keypadPressed(getButtonPressed(e));
 			
 		});
 
 		button7.addClickListener(e -> {
 			
-			changeNumber(numberEntered(e));
+			keypadPressed(getButtonPressed(e));
 			
 		});
 
 		button8.addClickListener(e -> {
 			
-			changeNumber(numberEntered(e));
+			keypadPressed(getButtonPressed(e));
 			
 		});
 
 		button9.addClickListener(e -> {
 			
-			changeNumber(numberEntered(e));
+			keypadPressed(getButtonPressed(e));
 			
 		});
 
 		button0.addClickListener(e -> {
 			
-			changeNumber(numberEntered(e));
+			keypadPressed(getButtonPressed(e));
 			
 		});
 
 		buttonStar.addClickListener(e -> {
 			
-			changeNumber(numberEntered(e));
+			keypadPressed(getButtonPressed(e));
 			
 		});
 
 		buttonPound.addClickListener(e -> {
 						
-			changeNumber(numberEntered(e));
+			keypadPressed(getButtonPressed(e));
 			
 		});
 		
@@ -258,7 +269,7 @@ public class MyUI extends UI {
 				
 	}
 	
-	public String numberEntered(ClickEvent event) {
+	public String getButtonPressed(ClickEvent event) {
 		
 		String text = "";
 		
@@ -302,26 +313,21 @@ public class MyUI extends UI {
 		return text;
 	}
 	
-	public void changeNumber(String string) {
+	public void keypadPressed(String getButtonPressed) {
 		if (lineNumberField.getValue().length() >= 4) {
 		} // do nothing
 		else if (countryCodeField.getValue().length() < 1) {
-			countryCodeField.setValue(countryCodeField.getValue() + string);
+			countryCodeField.setValue(countryCodeField.getValue() + getButtonPressed);
 		} else if (areaCodeField.getValue().length() < 3) {
-			areaCodeField.setValue(areaCodeField.getValue() + string);
+			areaCodeField.setValue(areaCodeField.getValue() + getButtonPressed);
 		} else if (prefixCodeField.getValue().length() < 3) {
-			prefixCodeField.setValue(prefixCodeField.getValue() + string);
+			prefixCodeField.setValue(prefixCodeField.getValue() + getButtonPressed);
 		} else {
-			lineNumberField.setValue(lineNumberField.getValue() + string);
+			lineNumberField.setValue(lineNumberField.getValue() + getButtonPressed);
 		}
 	}
 	
-	public void myUI(Controller controller, Model model) {
-		
-		this.model = model;
-		this.controller = controller;
-		
-	}
+
 	
 	public String getCountryField() {
 		return countryCodeField.getValue();
@@ -360,12 +366,24 @@ public class MyUI extends UI {
 	}
 	
 	public void setVolumeDown() {
-		System.out.println("EXECUTE");
 		volumeDisplay.setValue(Integer.toString(Integer.parseInt(volumeDisplay.getValue()) - 1));
 	}
 	
 	public void setVolumeUp() {
 		volumeDisplay.setValue(Integer.toString(Integer.parseInt(volumeDisplay.getValue()) + 1));
+	}
+	
+	public String deleteTextField(String string) {
+		
+		if (string.length() != 0) 
+		{
+			return string.substring(0, string.length() - 1);
+		}
+		else
+		{
+			return string;
+		}
+		
 	}
 	
 	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)

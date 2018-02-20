@@ -4,10 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
+import com.vaadin.ui.Button.ClickEvent;
+
 public class Controller {
 
     private Model model;
-    //private MyUI myUI;
+    private MyUI myUI;
     private PhoneNumber phoneNum = new PhoneNumber();
     
     //do this outside of the constructor later
@@ -16,8 +18,7 @@ public class Controller {
     public Controller(Model model) {
     	
         this.model = model;
-        
-        //PhoneNumber phoneNum = new PhoneNumber(); //move out of constructor
+        //myUI = new MyUI(this, model);
         
         System.out.println("in the controller uhhh");
         System.out.println(phoneNum.getCountryCode());
@@ -31,67 +32,74 @@ public class Controller {
         phoneNum.append("6");
         System.out.println(phoneNum.getCountryCode() + " " + phoneNum.getAreaCode());
       
-        /*
-        myUI.setVolumeDown();
-        myUI.setAreaField(phoneNum.getAreaCode());
-        System.out.println("VOLUME: " + myUI.getVolume());
-        System.out.println("Area field: " + myUI.getAreaField());
-        */
+
+        //myUI.setVolumeDown();
+       // myUI.setAreaField(phoneNum.getAreaCode());
+        //System.out.println("VOLUME: " + myUI.getVolume());
+        //System.out.println("Area field: " + myUI.getAreaField());
        
+        //TODO: possibly implement an observer interface with an update() method 
     }
     
     /*
-    public void initListeners() {
-        myUI.button1.addClickListener(e ->{
-        	
-        });
-        
-        myUI.button2.addClickListener(e ->{
-        	
-        });
-        
-        myUI.button3.addClickListener(e ->{
-        	
-        });
-        
-        myUI.button4.addClickListener(e ->{
-        	
-        });
-        
-        myUI.button5.addClickListener(e ->{
-        	
-        });
-        
-        myUI.button6.addClickListener(e ->{
-        	
-        });
-        
-        myUI.button7.addClickListener(e ->{
-        	
-        });
-        
-        myUI.button8.addClickListener(e ->{
-        	
-        });
-        
-        myUI.button9.addClickListener(e ->{
-        	
-        });      
-        
-        myUI.button0.addClickListener(e ->{
-        	
-        });
-        
-        myUI.buttonStar.addClickListener(e ->{
-        	
-        });
-        
-        myUI.buttonPound.addClickListener(e ->{
-        	
-        }); 
-    }
+	public String getButtonPressed(ClickEvent event) {
+		
+		String text = "";
+		
+		if (event.getButton() == button1) {
+		text = "1";
+		}
+		else if (event.getButton() == button2) {
+		text = "2";
+		}
+		else if (event.getButton() == button3) {
+		text = "3";
+		}
+		else if (event.getButton() == button4) {
+		text = "4";
+		}
+		else if (event.getButton() == button5) {
+		text = "5";
+		}
+		else if (event.getButton() == button6) {
+		text = "6";
+		}
+		else if (event.getButton() == button7) {
+		text = "7";
+		}
+		else if (event.getButton() == button8) {
+		text = "8";
+		}
+		else if (event.getButton() == button9) {
+		text = "9";
+		}
+		else if (event.getButton() == button0) {
+		text = "0";
+		}
+		else if (event.getButton() == buttonStar) {
+		text = "*";
+		}
+		else if (event.getButton() == buttonPound) {
+		text = "#";
+		}
+		
+		return text;
+	}
+	
+	public void keypadPressed(String getButtonPressed) {
+		if (lineNumberField.getValue().length() >= 4) {
+		} // do nothing
+		else if (countryCodeField.getValue().length() < 1) {
+			countryCodeField.setValue(countryCodeField.getValue() + getButtonPressed);
+		} else if (areaCodeField.getValue().length() < 3) {
+			areaCodeField.setValue(areaCodeField.getValue() + getButtonPressed);
+		} else if (prefixCodeField.getValue().length() < 3) {
+			prefixCodeField.setValue(prefixCodeField.getValue() + getButtonPressed);
+		} else {
+			lineNumberField.setValue(lineNumberField.getValue() + getButtonPressed);
+		}
+	}
     */
-    
 	/*
 	
 	public void createNewPhoneNumber() {
