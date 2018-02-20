@@ -69,17 +69,22 @@ public class MyUI extends UI {
 	final Label volumeDisplay = new Label("5");
 	final Button volumeUp = new Button("/|\\");
 	
+	private MyUI myUI;
+	private Model model;
+	private Controller controller;
+	
 	//this is kind of Vaadin's main method
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
 
-		MyUI myUI = new MyUI();
+		model = new Model();
+		controller = new Controller(model);
+		//myUI = new MyUI(controller, model);
+		
 		initLayout(); //since the layout will be static, just put everything relevant to it in the method
 		initModifications(); //
 		initListeners(); //TODO: move these to Controller
-        Model myModel = new Model();
-		Controller myController = new Controller(myModel, myUI);
-		
+        			
 	}
 	
 	private void initLayout() {
@@ -134,7 +139,6 @@ public class MyUI extends UI {
 	}
 		*/
 	
-	
 	private void initListeners() {
 				
 		buttonDelete.addClickListener(e -> {
@@ -164,175 +168,74 @@ public class MyUI extends UI {
 		  
 		button1.addClickListener(e -> {
 			
-			System.out.println("CAPTION: " + button1.getCaption());
+			changeNumber(numberEntered(e));
 			
-			if (countryCodeField.getValue().length() != 1) {
-				countryCodeField.setValue(countryCodeField.getValue() + "1");
-				//countryCodeField.setValue(countryCodeField.getValue() + "button.getCaption()");
-			} else if (areaCodeField.getValue().length() != 3) {
-				areaCodeField.setValue(areaCodeField.getValue() + "1");
-				//areaCodeField.setValue(areaCodeField.getValue() + "button.getCaption()");
-			} else if (prefixCodeField.getValue().length() != 3) {
-				prefixCodeField.setValue(prefixCodeField.getValue() + "1");
-				//prefixCodeField.setValue(prefixCodeField.getValue() + "button.getCaption()");	
-			} else {
-				lineNumberField.setValue(lineNumberField.getValue() + "1");
-				//lineNumberField.setValue(lineNumberField.getValue() + "button.getCaption()");
-			}
 		});
 
 		button2.addClickListener(e -> {
-			if (lineNumberField.getValue().length() >= 4) {
-			} // do nothing
-			else if (countryCodeField.getValue().length() < 1) {
-				countryCodeField.setValue(countryCodeField.getValue() + "2");
-			} else if (areaCodeField.getValue().length() < 3) {
-				areaCodeField.setValue(areaCodeField.getValue() + "2");
-			} else if (prefixCodeField.getValue().length() < 3) {
-				prefixCodeField.setValue(prefixCodeField.getValue() + "2");
-			} else {
-				lineNumberField.setValue(lineNumberField.getValue() + "2");
-			}
+			
+			changeNumber(numberEntered(e));
+			
 		});
 
 		button3.addClickListener(e -> {
-			if (lineNumberField.getValue().length() >= 4) {
-			} // do nothing
-			else if (countryCodeField.getValue().length() < 1) {
-				countryCodeField.setValue(countryCodeField.getValue() + "3");
-			} else if (areaCodeField.getValue().length() < 3) {
-				areaCodeField.setValue(areaCodeField.getValue() + "3");
-			} else if (prefixCodeField.getValue().length() < 3) {
-				prefixCodeField.setValue(prefixCodeField.getValue() + "3");
-			} else {
-				lineNumberField.setValue(lineNumberField.getValue() + "3");
-			}
+			
+			changeNumber(numberEntered(e));
+			
 		});
 
 		button4.addClickListener(e -> {
-			if (lineNumberField.getValue().length() >= 4) {
-			} // do nothing
-			else if (countryCodeField.getValue().length() < 1) {
-				countryCodeField.setValue(countryCodeField.getValue() + "4");
-			} else if (areaCodeField.getValue().length() < 3) {
-				areaCodeField.setValue(areaCodeField.getValue() + "4");
-			} else if (prefixCodeField.getValue().length() < 3) {
-				prefixCodeField.setValue(prefixCodeField.getValue() + "4");
-			} else {
-				lineNumberField.setValue(lineNumberField.getValue() + "4");
-			}
+			
+			changeNumber(numberEntered(e));
+			
 		});
 
 		button5.addClickListener(e -> {
-			if (lineNumberField.getValue().length() >= 4) {
-			} // do nothing
-			else if (countryCodeField.getValue().length() < 1) {
-				countryCodeField.setValue(countryCodeField.getValue() + "5");
-			} else if (areaCodeField.getValue().length() < 3) {
-				areaCodeField.setValue(areaCodeField.getValue() + "5");
-			} else if (prefixCodeField.getValue().length() < 3) {
-				prefixCodeField.setValue(prefixCodeField.getValue() + "5");
-			} else {
-				lineNumberField.setValue(lineNumberField.getValue() + "5");
-			}
+			
+			changeNumber(numberEntered(e));
+			
 		});
 
 		button6.addClickListener(e -> {
-			if (lineNumberField.getValue().length() >= 4) {
-			} // do nothing
-			else if (countryCodeField.getValue().length() < 1) {
-				countryCodeField.setValue(countryCodeField.getValue() + "6");
-			} else if (areaCodeField.getValue().length() < 3) {
-				areaCodeField.setValue(areaCodeField.getValue() + "6");
-			} else if (prefixCodeField.getValue().length() < 3) {
-				prefixCodeField.setValue(prefixCodeField.getValue() + "6");
-			} else {
-				lineNumberField.setValue(lineNumberField.getValue() + "6");
-			}
+			
+			changeNumber(numberEntered(e));
+			
 		});
 
 		button7.addClickListener(e -> {
-			if (lineNumberField.getValue().length() >= 4) {
-			} // do nothing
-			else if (countryCodeField.getValue().length() < 1) {
-				countryCodeField.setValue(countryCodeField.getValue() + "7");
-			} else if (areaCodeField.getValue().length() < 3) {
-				areaCodeField.setValue(areaCodeField.getValue() + "7");
-			} else if (prefixCodeField.getValue().length() < 3) {
-				prefixCodeField.setValue(prefixCodeField.getValue() + "7");
-			} else {
-				lineNumberField.setValue(lineNumberField.getValue() + "7");
-			}
+			
+			changeNumber(numberEntered(e));
+			
 		});
 
 		button8.addClickListener(e -> {
-			if (lineNumberField.getValue().length() >= 4) {
-			} // do nothing
-			else if (countryCodeField.getValue().length() < 1) {
-				countryCodeField.setValue(countryCodeField.getValue() + "8");
-			} else if (areaCodeField.getValue().length() < 3) {
-				areaCodeField.setValue(areaCodeField.getValue() + "8");
-			} else if (prefixCodeField.getValue().length() < 3) {
-				prefixCodeField.setValue(prefixCodeField.getValue() + "8");
-			} else {
-				lineNumberField.setValue(lineNumberField.getValue() + "8");
-			}
+			
+			changeNumber(numberEntered(e));
+			
 		});
 
 		button9.addClickListener(e -> {
-			if (lineNumberField.getValue().length() >= 4) {
-			} // do nothing
-			else if (countryCodeField.getValue().length() < 1) {
-				countryCodeField.setValue(countryCodeField.getValue() + "9");
-			} else if (areaCodeField.getValue().length() < 3) {
-				areaCodeField.setValue(areaCodeField.getValue() + "9");
-			} else if (prefixCodeField.getValue().length() < 3) {
-				prefixCodeField.setValue(prefixCodeField.getValue() + "9");
-			} else {
-				lineNumberField.setValue(lineNumberField.getValue() + "9");
-			}
+			
+			changeNumber(numberEntered(e));
+			
 		});
 
 		button0.addClickListener(e -> {
-			if (lineNumberField.getValue().length() >= 4) {
-			} // do nothing
-			else if (countryCodeField.getValue().length() < 1) {
-				countryCodeField.setValue(countryCodeField.getValue() + "0");
-			} else if (areaCodeField.getValue().length() < 3) {
-				areaCodeField.setValue(areaCodeField.getValue() + "0");
-			} else if (prefixCodeField.getValue().length() < 3) {
-				prefixCodeField.setValue(prefixCodeField.getValue() + "0");
-			} else {
-				lineNumberField.setValue(lineNumberField.getValue() + "0");
-			}
+			
+			changeNumber(numberEntered(e));
+			
 		});
 
 		buttonStar.addClickListener(e -> {
-			if (lineNumberField.getValue().length() >= 4) {
-			} // do nothing
-			else if (countryCodeField.getValue().length() < 1) {
-				countryCodeField.setValue(countryCodeField.getValue() + "*");
-			} else if (areaCodeField.getValue().length() < 3) {
-				areaCodeField.setValue(areaCodeField.getValue() + "*");
-			} else if (prefixCodeField.getValue().length() < 3) {
-				prefixCodeField.setValue(prefixCodeField.getValue() + "*");
-			} else {
-				lineNumberField.setValue(lineNumberField.getValue() + "*");
-			}
+			
+			changeNumber(numberEntered(e));
+			
 		});
 
 		buttonPound.addClickListener(e -> {
-			if (lineNumberField.getValue().length() >= 4) {
-			} // do nothing
-			else if (countryCodeField.getValue().length() < 1) {
-				countryCodeField.setValue(countryCodeField.getValue() + "#");
-			} else if (areaCodeField.getValue().length() < 3) {
-				areaCodeField.setValue(areaCodeField.getValue() + "#");
-			} else if (prefixCodeField.getValue().length() < 3) {
-				prefixCodeField.setValue(prefixCodeField.getValue() + "#");
-			} else {
-				lineNumberField.setValue(lineNumberField.getValue() + "#");
-			}
+						
+			changeNumber(numberEntered(e));
+			
 		});
 		
 		volumeDown.addClickListener(e -> {
@@ -352,8 +255,71 @@ public class MyUI extends UI {
 			}
 			
 		});		
+				
+	}
+	
+	public String numberEntered(ClickEvent event) {
 		
-
+		String text = "";
+		
+		if (event.getButton() == button1) {
+		text = "1";
+		}
+		else if (event.getButton() == button2) {
+		text = "2";
+		}
+		else if (event.getButton() == button3) {
+		text = "3";
+		}
+		else if (event.getButton() == button4) {
+		text = "4";
+		}
+		else if (event.getButton() == button5) {
+		text = "5";
+		}
+		else if (event.getButton() == button6) {
+		text = "6";
+		}
+		else if (event.getButton() == button7) {
+		text = "7";
+		}
+		else if (event.getButton() == button8) {
+		text = "8";
+		}
+		else if (event.getButton() == button9) {
+		text = "9";
+		}
+		else if (event.getButton() == button0) {
+		text = "0";
+		}
+		else if (event.getButton() == buttonStar) {
+		text = "*";
+		}
+		else if (event.getButton() == buttonPound) {
+		text = "#";
+		}
+		
+		return text;
+	}
+	
+	public void changeNumber(String string) {
+		if (lineNumberField.getValue().length() >= 4) {
+		} // do nothing
+		else if (countryCodeField.getValue().length() < 1) {
+			countryCodeField.setValue(countryCodeField.getValue() + string);
+		} else if (areaCodeField.getValue().length() < 3) {
+			areaCodeField.setValue(areaCodeField.getValue() + string);
+		} else if (prefixCodeField.getValue().length() < 3) {
+			prefixCodeField.setValue(prefixCodeField.getValue() + string);
+		} else {
+			lineNumberField.setValue(lineNumberField.getValue() + string);
+		}
+	}
+	
+	public void myUI(Controller controller, Model model) {
+		
+		this.model = model;
+		this.controller = controller;
 		
 	}
 	

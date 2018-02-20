@@ -7,15 +7,17 @@ import java.util.Random;
 public class Controller {
 
     private Model model;
-    private MyUI myUI;
-//    public PhoneNumber phoneNum = new PhoneNumber();
+    //private MyUI myUI;
+    private PhoneNumber phoneNum = new PhoneNumber();
     
-    public Controller(Model model, MyUI myUI) {
+    //do this outside of the constructor later
+    //PhoneNumber phoneNum = new PhoneNumber();
+    
+    public Controller(Model model) {
     	
         this.model = model;
-        this.myUI = myUI;
         
-        PhoneNumber phoneNum = new PhoneNumber();
+        //PhoneNumber phoneNum = new PhoneNumber(); //move out of constructor
         
         System.out.println("in the controller uhhh");
         System.out.println(phoneNum.getCountryCode());
@@ -28,13 +30,67 @@ public class Controller {
         phoneNum.snip();
         phoneNum.append("6");
         System.out.println(phoneNum.getCountryCode() + " " + phoneNum.getAreaCode());
-        
+      
+        /*
         myUI.setVolumeDown();
         myUI.setAreaField(phoneNum.getAreaCode());
         System.out.println("VOLUME: " + myUI.getVolume());
-        
+        System.out.println("Area field: " + myUI.getAreaField());
+        */
+       
     }
     
+    /*
+    public void initListeners() {
+        myUI.button1.addClickListener(e ->{
+        	
+        });
+        
+        myUI.button2.addClickListener(e ->{
+        	
+        });
+        
+        myUI.button3.addClickListener(e ->{
+        	
+        });
+        
+        myUI.button4.addClickListener(e ->{
+        	
+        });
+        
+        myUI.button5.addClickListener(e ->{
+        	
+        });
+        
+        myUI.button6.addClickListener(e ->{
+        	
+        });
+        
+        myUI.button7.addClickListener(e ->{
+        	
+        });
+        
+        myUI.button8.addClickListener(e ->{
+        	
+        });
+        
+        myUI.button9.addClickListener(e ->{
+        	
+        });      
+        
+        myUI.button0.addClickListener(e ->{
+        	
+        });
+        
+        myUI.buttonStar.addClickListener(e ->{
+        	
+        });
+        
+        myUI.buttonPound.addClickListener(e ->{
+        	
+        }); 
+    }
+    */
     
 	/*
 	

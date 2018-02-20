@@ -18,6 +18,11 @@ import javafx.scene.media.*;
 
 
 public class Model {
+	
+	public Model () {
+		
+	}
+	
 
 	/*
 	private String phoneNumber;
