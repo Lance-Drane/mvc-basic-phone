@@ -73,14 +73,12 @@ public class MyUI extends UI {
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
 
+		MyUI myUI = new MyUI();
 		initLayout(); //since the layout will be static, just put everything relevant to it in the method
 		initModifications(); //
 		initListeners(); //TODO: move these to Controller
-		//MyUI myUI = new MyUI();
         Model myModel = new Model();
-        //Controller myController = new Controller(myUI,myModel); //can't use myUI as variable
-        //Controller myController = new Controller(myModel);
-		Controller myController = new Controller(myModel);
+		Controller myController = new Controller(myModel, myUI);
 		
 	}
 	
@@ -163,9 +161,11 @@ public class MyUI extends UI {
 		endButton.addClickListener(e -> {
 		
 		});
-		
-		
+		  
 		button1.addClickListener(e -> {
+			
+			System.out.println("CAPTION: " + button1.getCaption());
+			
 			if (countryCodeField.getValue().length() != 1) {
 				countryCodeField.setValue(countryCodeField.getValue() + "1");
 				//countryCodeField.setValue(countryCodeField.getValue() + "button.getCaption()");
@@ -357,20 +357,49 @@ public class MyUI extends UI {
 		
 	}
 	
+	public String getCountryField() {
+		return countryCodeField.getValue();
+	}
+	
 	public void setCountryField(String tempStr) {
 		countryCodeField.setValue(tempStr);
+	}
+
+	public String getAreaField() {
+		return countryCodeField.getValue();
 	}
 	
 	public void setAreaField(String tempStr) {
 		areaCodeField.setValue(tempStr);
 	}
 	
+	public String getPrefixField() {
+		return countryCodeField.getValue();
+	}
+	
 	public void setPrefixField(String tempStr) {
 		prefixCodeField.setValue(tempStr);
 	}
 	
+	public String getLineField() {
+		return countryCodeField.getValue();
+	}
+	
 	public void setLineField(String tempStr) {
 		lineNumberField.setValue(tempStr);
+	}
+	
+	public String getVolume() {
+		return volumeDisplay.getValue();
+	}
+	
+	public void setVolumeDown() {
+		System.out.println("EXECUTE");
+		volumeDisplay.setValue(Integer.toString(Integer.parseInt(volumeDisplay.getValue()) - 1));
+	}
+	
+	public void setVolumeUp() {
+		volumeDisplay.setValue(Integer.toString(Integer.parseInt(volumeDisplay.getValue()) + 1));
 	}
 	
 	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)

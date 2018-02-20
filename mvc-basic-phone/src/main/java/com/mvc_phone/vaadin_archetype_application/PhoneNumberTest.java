@@ -12,8 +12,15 @@ class PhoneNumberTest {
 	PhoneNumber phoneNumWithAreaCode = new PhoneNumber("727");
 	PhoneNumber phoneNumWithCountryCode = new PhoneNumber("5", "423");
 	
+	MyUI myUI = new MyUI();
+	
 	@Test
 	void test() {
+		//phoneNumTest();
+		MyUITest();
+	}
+	
+	public void phoneNumTest() {
 		//no arguments: 7 digits entered (least reasonable # to enter)
 		//PhoneNumber phoneNum = new PhoneNumber();
 		assertEquals("1", phoneNum.getCountryCode());
@@ -88,6 +95,16 @@ class PhoneNumberTest {
 			assertEquals(refCountry, phoneNumWithCountryCode.getFullPhoneNumber());					
 		}
 	
+	}
+	
+	public void MyUITest() {
+		assertEquals("5", myUI.getVolume());
+		myUI.setVolumeDown();
+		assertEquals("4", myUI.getVolume());
+		
+		//assertEquals("1", myUI.getCountryField()); //
+		myUI.setCountryField("5");
+		assertEquals("5", myUI.getCountryField());
 	}
 
 }

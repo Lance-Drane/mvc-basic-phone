@@ -10,10 +10,10 @@ public class Controller {
     private MyUI myUI;
 //    public PhoneNumber phoneNum = new PhoneNumber();
     
-    public Controller(Model model) {
+    public Controller(Model model, MyUI myUI) {
     	
         this.model = model;
-        //myUI = new MyUI(this, model);
+        this.myUI = myUI;
         
         PhoneNumber phoneNum = new PhoneNumber();
         
@@ -29,17 +29,13 @@ public class Controller {
         phoneNum.append("6");
         System.out.println(phoneNum.getCountryCode() + " " + phoneNum.getAreaCode());
         
+        myUI.setVolumeDown();
         myUI.setAreaField(phoneNum.getAreaCode());
+        System.out.println("VOLUME: " + myUI.getVolume());
         
     }
     
-    class VolumeListener implements ActionListener{
-    	
-    	public void actionPerformed(ActionEvent e) {
-    		
-    	}
-    	
-    }
+    
 	/*
 	
 	public void createNewPhoneNumber() {
