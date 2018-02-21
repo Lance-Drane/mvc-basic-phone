@@ -18,8 +18,11 @@ public class Controller {
     public Controller(Model model) {
     	
         this.model = model;
+        
+        //TODO: figure out constructor
         //myUI = new MyUI(this, model);
         
+        //tests
         System.out.println("in the controller uhhh");
         System.out.println(phoneNum.getCountryCode());
         System.out.println(phoneNum.getAreaCode());

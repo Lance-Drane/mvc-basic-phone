@@ -79,24 +79,27 @@ public class MyUI extends UI {
 
 		model = new Model();
 		controller = new Controller(model);
+		
+		//TODO: figure out constructor
 		//myUI = new MyUI(controller, model);
 		
 		initLayout(); //since the layout will be static, just put everything relevant to it in the method
 		initModifications(); //
-		initListeners(); //TODO: move these to Controller
+		initListeners(); 
         			
 	}
 	
-	/*
-	public myUI(Controller controller, Model model) {
+	
+	public void myUI(Controller controller, Model model) {
 		
 		this.model = model;
 		this.controller = controller;
 		initLayout(); //since the layout will be static, just put everything relevant to it in the method
 		initModifications(); //
-		initListeners(); //TODO: move these to Controller
+		initListeners();
+		
 	}
-	*/
+	
 	
 	private void initLayout() {
 		// master layout
@@ -141,32 +144,11 @@ public class MyUI extends UI {
 		lineNumberField.setReadOnly(true);
 		
 	}
-
-	/*	
-	public void addKeypadListeners (ActionListener listenForAnswerButton) {
-
-			button1.addActionListener(listenForAnswerButton);
-			//answerButton2.addActionListener(listenForAnswerButton);
-	}
-		*/
 	
 	private void initListeners() {
 				
 		buttonDelete.addClickListener(e -> {
-
-			// logic chains to ensure that values to the right are deleted first
-			
-			if (lineNumberField.getValue().length() > 0)
-				lineNumberField
-						.setValue(lineNumberField.getValue().substring(0, lineNumberField.getValue().length() - 1));
-			else if (prefixCodeField.getValue().length() > 0)
-				prefixCodeField
-						.setValue(prefixCodeField.getValue().substring(0, prefixCodeField.getValue().length() - 1));
-			else if (areaCodeField.getValue().length() > 0)
-				areaCodeField.setValue(areaCodeField.getValue().substring(0, areaCodeField.getValue().length() - 1));
-			else if (countryCodeField.getValue().length() > 0)
-				countryCodeField
-						.setValue(countryCodeField.getValue().substring(0, countryCodeField.getValue().length() - 1));
+			determineDeletion();
 		});
 		
 		startButton.addClickListener(e -> {
@@ -177,98 +159,77 @@ public class MyUI extends UI {
 		
 		});
 		  
-		button1.addClickListener(e -> {
-			
-			keypadPressed(getButtonPressed(e));
-			
+		button1.addClickListener(e -> {	
+			keypadPressed(getButtonPressed(e));	
 		});
 
-		button2.addClickListener(e -> {
-			
-			keypadPressed(getButtonPressed(e));
-			
+		button2.addClickListener(e -> {	
+			keypadPressed(getButtonPressed(e));	
 		});
 
-		button3.addClickListener(e -> {
-			
-			keypadPressed(getButtonPressed(e));
-			
+		button3.addClickListener(e -> {	
+			keypadPressed(getButtonPressed(e));	
 		});
 
-		button4.addClickListener(e -> {
-			
-			keypadPressed(getButtonPressed(e));
-			
+		button4.addClickListener(e -> {	
+			keypadPressed(getButtonPressed(e));	
 		});
 
-		button5.addClickListener(e -> {
-			
-			keypadPressed(getButtonPressed(e));
-			
+		button5.addClickListener(e -> {	
+			keypadPressed(getButtonPressed(e));	
 		});
 
-		button6.addClickListener(e -> {
-			
-			keypadPressed(getButtonPressed(e));
-			
+		button6.addClickListener(e -> {	
+			keypadPressed(getButtonPressed(e));	
 		});
 
-		button7.addClickListener(e -> {
-			
-			keypadPressed(getButtonPressed(e));
-			
+		button7.addClickListener(e -> {	
+			keypadPressed(getButtonPressed(e));	
 		});
 
-		button8.addClickListener(e -> {
-			
-			keypadPressed(getButtonPressed(e));
-			
+		button8.addClickListener(e -> {	
+			keypadPressed(getButtonPressed(e));	
 		});
 
-		button9.addClickListener(e -> {
-			
-			keypadPressed(getButtonPressed(e));
-			
+		button9.addClickListener(e -> {	
+			keypadPressed(getButtonPressed(e));	
 		});
 
-		button0.addClickListener(e -> {
-			
-			keypadPressed(getButtonPressed(e));
-			
+		button0.addClickListener(e -> {	
+			keypadPressed(getButtonPressed(e));		
 		});
 
-		buttonStar.addClickListener(e -> {
-			
-			keypadPressed(getButtonPressed(e));
-			
+		buttonStar.addClickListener(e -> {	
+			keypadPressed(getButtonPressed(e));	
 		});
 
-		buttonPound.addClickListener(e -> {
-						
-			keypadPressed(getButtonPressed(e));
-			
+		buttonPound.addClickListener(e -> {				
+			keypadPressed(getButtonPressed(e));	
 		});
 		
-		volumeDown.addClickListener(e -> {
-			
-			if (Integer.parseInt(volumeDisplay.getValue()) > 0)
-			{
-				volumeDisplay.setValue(Integer.toString(Integer.parseInt(volumeDisplay.getValue()) - 1));
-			}
-			
+		volumeDown.addClickListener(e -> {		
+				setVolumeDown();		
 		});
 		
-		volumeUp.addClickListener(e -> {
-			
-			if (Integer.parseInt(volumeDisplay.getValue()) < 10)
-			{
-				volumeDisplay.setValue(Integer.toString(Integer.parseInt(volumeDisplay.getValue()) + 1));
-			}
-			
+		volumeUp.addClickListener(e -> {		
+				setVolumeUp();		
 		});		
 				
 	}
 	
+	//TODO: Put in controller
+	public void determineDeletion() {
+		if (getLineField().length() > 0)
+			setLineField(getLineField().substring(0, getLineField().length() - 1));
+		else if (getPrefixField().length() > 0)
+			setPrefixField(getPrefixField().substring(0, getPrefixField().length() - 1));
+		else if (getAreaField().length() > 0)
+			setAreaField(getAreaField().substring(0, getAreaField().length() - 1));
+		else if (getCountryField().length() > 0)
+			setCountryField(getCountryField().substring(0, getCountryField().length() - 1));
+	}
+	
+	//TODO: Put in controller
 	public String getButtonPressed(ClickEvent event) {
 		
 		String text = "";
@@ -313,17 +274,16 @@ public class MyUI extends UI {
 		return text;
 	}
 	
+	//TODO: put in controller
 	public void keypadPressed(String getButtonPressed) {
-		if (lineNumberField.getValue().length() >= 4) {
-		} // do nothing
-		else if (countryCodeField.getValue().length() < 1) {
-			countryCodeField.setValue(countryCodeField.getValue() + getButtonPressed);
-		} else if (areaCodeField.getValue().length() < 3) {
-			areaCodeField.setValue(areaCodeField.getValue() + getButtonPressed);
-		} else if (prefixCodeField.getValue().length() < 3) {
-			prefixCodeField.setValue(prefixCodeField.getValue() + getButtonPressed);
-		} else {
-			lineNumberField.setValue(lineNumberField.getValue() + getButtonPressed);
+		if (getCountryField().length() != 1) {
+			setCountryField(getCountryField() + getButtonPressed);
+		} else if (getAreaField().length() != 3) {
+			setAreaField(getAreaField() + getButtonPressed);
+		} else if (getPrefixField().length() != 3) {
+			setPrefixField(getPrefixField() + getButtonPressed);
+		} else if (getLineField().length() != 4){
+			setLineField(getLineField() + getButtonPressed);
 		}
 	}
 	
@@ -366,11 +326,15 @@ public class MyUI extends UI {
 	}
 	
 	public void setVolumeDown() {
+		if (Integer.parseInt(volumeDisplay.getValue()) > 0) {
 		volumeDisplay.setValue(Integer.toString(Integer.parseInt(volumeDisplay.getValue()) - 1));
+		}
 	}
 	
 	public void setVolumeUp() {
+		if (Integer.parseInt(volumeDisplay.getValue()) < 10) {
 		volumeDisplay.setValue(Integer.toString(Integer.parseInt(volumeDisplay.getValue()) + 1));
+		}
 	}
 	
 	public String deleteTextField(String string) {
