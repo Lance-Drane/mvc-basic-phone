@@ -1,11 +1,10 @@
 package com.mvc_phone.vaadin_archetype_application;
 
-import java.awt.event.ActionListener;
-
 import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.data.Binder;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
@@ -73,31 +72,30 @@ public class MyUI extends UI {
 	private Model model;
 	private Controller controller;
 	
+	//Binder
+	Binder<PhoneNumber> binder = new Binder<>();
+	
 	//this is kind of Vaadin's main method
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
-
-		model = new Model();
-		controller = new Controller(model);
 		
-		//TODO: figure out constructor
-		//myUI = new MyUI(controller, model);
-		
-		initLayout(); //since the layout will be static, just put everything relevant to it in the method
-		initModifications(); //
-		initListeners(); 
-        			
-	}
-	
-	
-	public void myUI(Controller controller, Model model) {
-		
-		this.model = model;
-		this.controller = controller;
 		initLayout(); //since the layout will be static, just put everything relevant to it in the method
 		initModifications(); //
 		initListeners();
+		initBinder();
+		System.out.println("Start?");
+        			
+	}
 		
+	public MyUI() {
+		
+		System.out.println("Now I'm in the constructor!");
+		model = new Model();
+		System.out.println("First constructor executed");
+		controller = new Controller(model);
+		System.out.println("Second constructor executed");
+		
+		System.out.println("VOLUME: " + getVolume());
 	}
 	
 	
@@ -145,6 +143,11 @@ public class MyUI extends UI {
 		
 	}
 	
+	//controller.getPhoneNumber
+	//from the UI get the phone number from the controller
+	//controller tells phone number to edit itself
+	//Vaadin data (i.e. textfield) binding
+	
 	private void initListeners() {
 				
 		buttonDelete.addClickListener(e -> {
@@ -159,7 +162,7 @@ public class MyUI extends UI {
 		
 		});
 		  
-		button1.addClickListener(e -> {	
+		button1.addClickListener(e -> {		
 			keypadPressed(getButtonPressed(e));	
 		});
 
@@ -184,7 +187,7 @@ public class MyUI extends UI {
 		});
 
 		button7.addClickListener(e -> {	
-			keypadPressed(getButtonPressed(e));	
+			keypadPressed(getButtonPressed(e));		
 		});
 
 		button8.addClickListener(e -> {	
@@ -192,19 +195,19 @@ public class MyUI extends UI {
 		});
 
 		button9.addClickListener(e -> {	
-			keypadPressed(getButtonPressed(e));	
-		});
-
-		button0.addClickListener(e -> {	
 			keypadPressed(getButtonPressed(e));		
 		});
 
+		button0.addClickListener(e -> {	
+			keypadPressed(getButtonPressed(e));			
+		});
+
 		buttonStar.addClickListener(e -> {	
-			keypadPressed(getButtonPressed(e));	
+			keypadPressed(getButtonPressed(e));		
 		});
 
 		buttonPound.addClickListener(e -> {				
-			keypadPressed(getButtonPressed(e));	
+			keypadPressed(getButtonPressed(e));		
 		});
 		
 		volumeDown.addClickListener(e -> {		
@@ -217,7 +220,13 @@ public class MyUI extends UI {
 				
 	}
 	
-	//TODO: Put in controller
+	private void initBinder() {
+		binder.forField(countryCodeField).bind(PhoneNumber::getCountryCode, PhoneNumber::setCountryCode);
+		binder.forField(areaCodeField).bind(PhoneNumber::getAreaCode, PhoneNumber::setAreaCode);
+		binder.forField(prefixCodeField).bind(PhoneNumber::getPrefixCode, PhoneNumber::setPrefixCode);
+		binder.forField(lineNumberField).bind(PhoneNumber::getLineNumber, PhoneNumber::setLineNumber);				
+	}
+	
 	public void determineDeletion() {
 		if (getLineField().length() > 0)
 			setLineField(getLineField().substring(0, getLineField().length() - 1));
@@ -229,53 +238,12 @@ public class MyUI extends UI {
 			setCountryField(getCountryField().substring(0, getCountryField().length() - 1));
 	}
 	
-	//TODO: Put in controller
 	public String getButtonPressed(ClickEvent event) {
-		
-		String text = "";
-		
-		if (event.getButton() == button1) {
-		text = "1";
-		}
-		else if (event.getButton() == button2) {
-		text = "2";
-		}
-		else if (event.getButton() == button3) {
-		text = "3";
-		}
-		else if (event.getButton() == button4) {
-		text = "4";
-		}
-		else if (event.getButton() == button5) {
-		text = "5";
-		}
-		else if (event.getButton() == button6) {
-		text = "6";
-		}
-		else if (event.getButton() == button7) {
-		text = "7";
-		}
-		else if (event.getButton() == button8) {
-		text = "8";
-		}
-		else if (event.getButton() == button9) {
-		text = "9";
-		}
-		else if (event.getButton() == button0) {
-		text = "0";
-		}
-		else if (event.getButton() == buttonStar) {
-		text = "*";
-		}
-		else if (event.getButton() == buttonPound) {
-		text = "#";
-		}
-		
-		return text;
+		return event.getButton().getCaption();
 	}
 	
-	//TODO: put in controller
 	public void keypadPressed(String getButtonPressed) {
+		
 		if (getCountryField().length() != 1) {
 			setCountryField(getCountryField() + getButtonPressed);
 		} else if (getAreaField().length() != 3) {
@@ -286,9 +254,7 @@ public class MyUI extends UI {
 			setLineField(getLineField() + getButtonPressed);
 		}
 	}
-	
-
-	
+		
 	public String getCountryField() {
 		return countryCodeField.getValue();
 	}
@@ -298,7 +264,7 @@ public class MyUI extends UI {
 	}
 
 	public String getAreaField() {
-		return countryCodeField.getValue();
+		return areaCodeField.getValue();
 	}
 	
 	public void setAreaField(String tempStr) {
@@ -306,7 +272,7 @@ public class MyUI extends UI {
 	}
 	
 	public String getPrefixField() {
-		return countryCodeField.getValue();
+		return prefixCodeField.getValue();
 	}
 	
 	public void setPrefixField(String tempStr) {
@@ -314,7 +280,7 @@ public class MyUI extends UI {
 	}
 	
 	public String getLineField() {
-		return countryCodeField.getValue();
+		return lineNumberField.getValue();
 	}
 	
 	public void setLineField(String tempStr) {
@@ -335,19 +301,6 @@ public class MyUI extends UI {
 		if (Integer.parseInt(volumeDisplay.getValue()) < 10) {
 		volumeDisplay.setValue(Integer.toString(Integer.parseInt(volumeDisplay.getValue()) + 1));
 		}
-	}
-	
-	public String deleteTextField(String string) {
-		
-		if (string.length() != 0) 
-		{
-			return string.substring(0, string.length() - 1);
-		}
-		else
-		{
-			return string;
-		}
-		
 	}
 	
 	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
