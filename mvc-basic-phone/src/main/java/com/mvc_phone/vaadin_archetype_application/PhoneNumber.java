@@ -97,6 +97,7 @@ public class PhoneNumber {
 	}
 	
 	//call when adding on to the phone string
+	/*
 	public void append(String tempStr) {
 		
 		if (getCountryCode().length() != 1)
@@ -117,8 +118,10 @@ public class PhoneNumber {
 		}	
 		
 	}
+	*/
 	
-	//call when deleting phone string... will be called on by delete button 	
+	//call when deleting phone string... will be called on by delete button
+	/*
 	public void snip() {
 		
 		if (getLineNumber().length() != 0)
@@ -138,6 +141,7 @@ public class PhoneNumber {
 			snipCountryCode();
 		}		
 	}
+	*/
 	
 	public String getFullPhoneNumber() {
 		return countryCode + areaCode + prefixCode + lineNumber;

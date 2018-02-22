@@ -245,7 +245,7 @@ public class MyUI extends UI {
 	public void determineDeletion() {
 		if (!inCall)
 		{
-			controller.phoneNum.snip();
+			controller.snip();
 			if (getLineField().length() > 0)
 			{
 				setLineField(getLineField().substring(0, getLineField().length() - 1));
@@ -303,7 +303,7 @@ public class MyUI extends UI {
 	
 	public void keypadPressed(String getButtonPressed) {
 		
-		controller.phoneNum.append(getButtonPressed);
+		controller.append(getButtonPressed);
 		if (getCountryField().length() != 1) 
 		{
 			setCountryField(getCountryField() + getButtonPressed);

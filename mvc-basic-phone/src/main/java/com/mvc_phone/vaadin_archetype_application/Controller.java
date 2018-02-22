@@ -37,6 +37,44 @@ public class Controller {
     	phoneNum = new PhoneNumber("1", "865");
     }
 	
+    public void append(String tempStr) {
+		if (phoneNum.getCountryCode().length() != 1)
+		{
+			phoneNum.appendCountryCode(tempStr);
+		}
+		else if (phoneNum.getAreaCode().length() != 3)
+		{
+			phoneNum.appendAreaCode(tempStr);
+		}
+		else if (phoneNum.getPrefixCode().length() != 3)
+		{
+			phoneNum.appendPrefixCode(tempStr);
+		}
+		else if (phoneNum.getLineNumber().length() != 4)
+		{
+			phoneNum.appendLineNumber(tempStr);
+		}	
+    }
+    
+    public void snip() {
+		if (phoneNum.getLineNumber().length() != 0)
+		{
+			phoneNum.snipLineNumber();
+		}
+		else if (phoneNum.getPrefixCode().length() != 0)
+		{
+			phoneNum.snipPrefixCode();
+		}
+		else if (phoneNum.getAreaCode().length() != 0)
+		{
+			phoneNum.snipAreaCode();		
+		}
+		else if (phoneNum.getCountryCode().length() != 0)
+		{
+			phoneNum.snipCountryCode();
+		}		
+    }
+    
     /*
     public void editCountryCode() {
     	phoneNum.getCountryCode();

@@ -9,9 +9,13 @@ import org.junit.jupiter.api.Test;
 class PhoneNumberTest {
 	
 	PhoneNumber phoneNum = new PhoneNumber();
-	PhoneNumber phoneNumWithAreaCode = new PhoneNumber("727");
+	PhoneNumber phoneNumWithAreaCode = new PhoneNumber("7");
 	PhoneNumber phoneNumWithCountryCode = new PhoneNumber("5", "423");
 	
+	//MyUI myUI = new MyUI();
+	
+	Model model = new Model();
+	Controller controller = new Controller(model);
 	MyUI myUI = new MyUI();
 	
 	@Test
@@ -23,13 +27,13 @@ class PhoneNumberTest {
 	public void phoneNumTest() {
 		//no arguments: 7 digits entered (least reasonable # to enter)
 		//PhoneNumber phoneNum = new PhoneNumber();
-		assertEquals("1", phoneNum.getCountryCode());
-		assertEquals("865", phoneNum.getAreaCode());
+		assertEquals("", phoneNum.getCountryCode());
+		assertEquals("", phoneNum.getAreaCode());
 		
 		//one argument: area code entered, but not country code
 		//PhoneNumber phoneNumWithAreaCode = new PhoneNumber("727");
-		assertEquals("1", phoneNumWithAreaCode.getCountryCode());
-		assertEquals("727", phoneNumWithAreaCode.getAreaCode());
+		assertEquals("7", phoneNumWithAreaCode.getCountryCode());
+		assertEquals("", phoneNumWithAreaCode.getAreaCode());
 		
 		//two arguments: area code and country code entered
 		//PhoneNumber phoneNumWithCountryCode = new PhoneNumber("5", "423");
@@ -39,13 +43,13 @@ class PhoneNumberTest {
 		Random randomInt = new Random();
 		
 		//no arguments provided
-		String ref = "1865";
-		for (int i = 0; i < 7; i++)
+		String ref = "";
+		for (int i = 0; i < 11; i++)
 		{
 			int temp = randomInt.nextInt(10);
 			String tempStr = Integer.toString(temp);
 			ref += tempStr;//modify variable exclusive to PhoneTest
-			phoneNum.append(tempStr); //call PhoneNumber class to modify its own variable, then get the variable					
+			controller.append(tempStr); //call PhoneNumber class to modify its own variable, then get the variable					
 		}
 		assertEquals(1, phoneNum.getCountryCode().length());
 		assertEquals(3, phoneNum.getAreaCode().length());
@@ -56,16 +60,16 @@ class PhoneNumberTest {
 		//one argument provided
 		if (phoneNumWithAreaCode.getAreaCode().length() == 3)
 		{
-			String refArea = "1727";
+			String refArea = "7";
 			System.out.println(phoneNumWithAreaCode.getFullPhoneNumber());
-			for (int i = 0; i < 7; i++)
+			for (int i = 0; i < 10; i++)
 			{
 				int temp = randomInt.nextInt(10);
 				String tempStr = Integer.toString(temp);
 				System.out.println("tempStr" + i + " " + tempStr);
 				refArea += tempStr;//modify variable exclusive to PhoneTes
 				System.out.println("refArea" + i + " " + refArea);
-				phoneNumWithAreaCode.append(tempStr); //call PhoneNumber class to modify its own variable, then get the variable
+				controller.append(tempStr); //call PhoneNumber class to modify its own variable, then get the variable
 				System.out.println(phoneNumWithAreaCode.getFullPhoneNumber());
 			}
 			assertEquals(1, phoneNumWithAreaCode.getCountryCode().length());
@@ -81,12 +85,12 @@ class PhoneNumberTest {
 				 && phoneNumWithCountryCode.getCountryCode().length() == 1)
 		{
 			String refCountry = "5423";
-			for (int i = 0; i < 7; i++)
+			for (int i = 0; i < 11; i++)
 			{
 				int temp = randomInt.nextInt(10);
 				String tempStr = Integer.toString(temp);
 				refCountry += tempStr;//modify variable exclusive to PhoneTest
-				phoneNumWithCountryCode.append(tempStr); //call PhoneNumber class to modify its own variable, then get the variable					
+				controller.append(tempStr); //call PhoneNumber class to modify its own variable, then get the variable					
 			}
 			assertEquals(1, phoneNumWithCountryCode.getCountryCode().length());
 			assertEquals(3, phoneNumWithCountryCode.getAreaCode().length());
