@@ -85,7 +85,7 @@ class PhoneNumberTest {
 				 && phoneNumWithCountryCode.getCountryCode().length() == 1)
 		{
 			String refCountry = "5423";
-			for (int i = 0; i < 11; i++)
+			for (int i = 0; i < 7; i++)
 			{
 				int temp = randomInt.nextInt(10);
 				String tempStr = Integer.toString(temp);

@@ -264,36 +264,6 @@ public class MyUI extends UI {
 			}
 			//handleBinderUpdates();
 			controller.testDataEditing();
-			/*
-			if (controller.phoneNum.getLineNumber().length() > 0)
-			{
-				setLineField(getLineField().substring(0, getLineField().length() - 1));
-				controller.phoneNum.setLineNumber(getLineField());
-				//handleBinderUpdates();
-				controller.testDataEditing();
-			}
-			else if (controller.phoneNum.getPrefixCode().length() > 0)
-			{
-				setPrefixField(getPrefixField().substring(0, getPrefixField().length() - 1));
-				controller.phoneNum.setPrefixCode(getPrefixField());
-				//handleBinderUpdates();
-				controller.testDataEditing();
-			}
-			else if (controller.phoneNum.getAreaCode().length() > 0)
-			{
-				setAreaField(getAreaField().substring(0, getAreaField().length() - 1));
-				controller.phoneNum.setAreaCode(getAreaField());
-				//handleBinderUpdates();
-				controller.testDataEditing();
-			}
-			else if (controller.phoneNum.getCountryCode().length() > 0)
-			{
-				setCountryField(getCountryField().substring(0, getCountryField().length() - 1));
-				controller.phoneNum.setCountryCode(getCountryField());
-				//handleBinderUpdates();
-				controller.testDataEditing();
-			}
-			*/
 		}
 	}
 	
@@ -323,42 +293,11 @@ public class MyUI extends UI {
 		//handleBinderUpdates();
 		controller.testDataEditing();
 		
-		/*
-		if (controller.phoneNum.getCountryCode().length() != 1) 
-		{
-			setCountryField(getCountryField() + getButtonPressed);
-			controller.phoneNum.setCountryCode(getCountryField());
-			//handleBinderUpdates();
-			controller.testDataEditing();
-		} 
-		else if (controller.phoneNum.getAreaCode().length() != 3) 
-		{
-			setAreaField(getAreaField() + getButtonPressed);
-			controller.phoneNum.setAreaCode(getAreaField());
-			//handleBinderUpdates();
-			controller.testDataEditing();
-		} 
-		else if (controller.phoneNum.getPrefixCode().length() != 3) 
-		{
-			setPrefixField(getPrefixField() + getButtonPressed);
-			controller.phoneNum.setPrefixCode(getPrefixField());
-			//handleBinderUpdates();
-			controller.testDataEditing();
-		} 
-		else if (controller.phoneNum.getLineNumber().length() != 4)
-		{
-			setLineField(getLineField() + getButtonPressed);
-			controller.phoneNum.setLineNumber(getLineField());
-			//handleBinderUpdates();
-			controller.testDataEditing();
-		}
-		*/
 	}
 	
 	public void changeCallStatus(String caption) { //can potentially have this method return a Boolean and ditch inCall variable
 		if (caption == startButton.getCaption() && controller.phoneNum.getFullPhoneNumber().length() == 11)
 		{			
-			//TODO: check the phoneNumber class to make sure this is valid, not the text field
 			inCall = true;
 			callStatus.setValue(yesInCall);
 		}
