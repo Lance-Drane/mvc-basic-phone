@@ -9,19 +9,19 @@ public class PhoneNumber {
 	private String prefixCode = "";
 	private String lineNumber = "";
 
-	//default constructor, use for 7 digits entered
+	//default constructor, use for 11 digits entered
 	PhoneNumber() {
-		countryCode = "1";
-		areaCode = "865";
+		//countryCode = "1";
+		//areaCode = "865";
 	}
 	
 	//constructor for 10 digits
-	PhoneNumber(String areaCode) {
-		countryCode = "1";
-		this.areaCode = areaCode;
+	PhoneNumber(String countryCode) {
+		//countryCode = "1";
+		this.countryCode = countryCode;
 	}
 	
-	//use for 11 digits entered
+	//use for 7 digits entered
 	PhoneNumber(String countryCode, String areaCode) {
 		this.countryCode = countryCode;
 		this.areaCode = areaCode;

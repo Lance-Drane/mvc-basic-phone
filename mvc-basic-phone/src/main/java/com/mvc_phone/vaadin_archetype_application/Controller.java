@@ -12,8 +12,8 @@ public class Controller {
     	
         this.model = model;
         
-        phoneNum = new PhoneNumber("1");        
-        
+        createNewPhoneNumberOneArg();
+                
         System.out.println("in the controller uhhh");      
         //TODO: possibly implement an observer interface with an update() method 
     }
@@ -23,6 +23,18 @@ public class Controller {
     	System.out.println("AREA CODE: " + phoneNum.getAreaCode());
     	System.out.println("PREFIX CODE: " + phoneNum.getPrefixCode());
     	System.out.println("LINE NUMBER: " + phoneNum.getLineNumber());    	
+    }
+    
+    public void createNewPhoneNumberNoArg() {
+    	phoneNum = new PhoneNumber();
+    }
+    
+    public void createNewPhoneNumberOneArg() {
+    	phoneNum = new PhoneNumber("1");
+    }
+    
+    public void createNewPhoneNumberTwoArg() {
+    	phoneNum = new PhoneNumber("1", "865");
     }
 	
     /*

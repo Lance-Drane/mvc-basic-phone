@@ -72,19 +72,18 @@ public class MyUI extends UI {
 	final private Button volumeDown = new Button("\\|/");
 	final private Label volumeDisplay = new Label("5");
 	final private Button volumeUp = new Button("/|\\");
+	final private int MIN_VOLUME = 0;
+	final private int MAX_VOLUME = 10;
 	
 	//volume slider
-	final private Slider volumeSlider = new Slider("Volume", 0, 10);
+	final private Slider volumeSlider = new Slider("Volume", MIN_VOLUME, MAX_VOLUME);
 	
 	private Model model;
 	private Controller controller;
 		
 	//Binder
 	Binder<PhoneNumber> binder = new Binder<>();
-	
-	//testing the data class here, remove it later
-	//PhoneNumber phoneNum;
-	
+
 	//this is kind of Vaadin's main method
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
@@ -94,6 +93,7 @@ public class MyUI extends UI {
 		initListeners();
 		initBinder();
 		System.out.println("Start?");
+		controller.testDataEditing();
         
 		//TODO: temporary testing block
 	}
@@ -106,7 +106,6 @@ public class MyUI extends UI {
 		controller = new Controller(model);
 		System.out.println("Second constructor executed");
 		
-		System.out.println("VOLUME: " + getVolume());
 	}
 	
 	
@@ -114,17 +113,16 @@ public class MyUI extends UI {
 		// master layout
 		final VerticalLayout layout = new VerticalLayout();
 
-		// make it legible and not huge, that's it
-		
-		int fieldHeight = 30;		
+		// make it legible and not huge, that's it		
+		final int FIELD_HEIGHT = 30;		
 		countryCodeField.setWidth(40, Unit.PIXELS);
-		countryCodeField.setHeight(fieldHeight, Unit.PIXELS);
+		countryCodeField.setHeight(FIELD_HEIGHT, Unit.PIXELS);
 		areaCodeField.setWidth(60, Unit.PIXELS);
-		areaCodeField.setHeight(fieldHeight, Unit.PIXELS);
+		areaCodeField.setHeight(FIELD_HEIGHT, Unit.PIXELS);
 		prefixCodeField.setWidth(60, Unit.PIXELS);
-		prefixCodeField.setHeight(fieldHeight, Unit.PIXELS);
+		prefixCodeField.setHeight(FIELD_HEIGHT, Unit.PIXELS);
 		lineNumberField.setWidth(80, Unit.PIXELS);
-		lineNumberField.setHeight(fieldHeight, Unit.PIXELS);
+		lineNumberField.setHeight(FIELD_HEIGHT, Unit.PIXELS);
 
 		final HorizontalLayout DisplayAndDelete = new HorizontalLayout(beginningLabel, countryCodeField,
 				labelSeparator1, areaCodeField, labelSeparator2, prefixCodeField, labelSeparator3, lineNumberField,
@@ -147,13 +145,15 @@ public class MyUI extends UI {
 	
 	private void initModifications() {
 		
-		// initialize text fields
 		countryCodeField.setReadOnly(true);
-		countryCodeField.setValue("1"); // do this by default , because who remembers country codes?
+		countryCodeField.setValue(controller.phoneNum.getCountryCode());
 		areaCodeField.setReadOnly(true);
-		//areaCodeField.setValue("865"); //perhaps implement logic determining a default value?
+		areaCodeField.setValue(controller.phoneNum.getAreaCode());
 		prefixCodeField.setReadOnly(true);
+		areaCodeField.setValue(controller.phoneNum.getPrefixCode());
 		lineNumberField.setReadOnly(true);
+		areaCodeField.setValue(controller.phoneNum.getLineNumber());
+		
 		volumeSlider.setValue((volumeSlider.getMin() + volumeSlider.getMax())/2);
 		
 	}
@@ -170,11 +170,11 @@ public class MyUI extends UI {
 		});
 		
 		startButton.addClickListener(e -> {
-			changeCallStatus(e);
+			changeCallStatus(getButtonPressed(e));
 		});
 		
 		endButton.addClickListener(e -> {
-			changeCallStatus(e);
+			changeCallStatus(getButtonPressed(e));
 		});
 		  
 		button1.addClickListener(e -> {		
@@ -245,34 +245,55 @@ public class MyUI extends UI {
 	public void determineDeletion() {
 		if (!inCall)
 		{
+			controller.phoneNum.snip();
 			if (getLineField().length() > 0)
+			{
+				setLineField(getLineField().substring(0, getLineField().length() - 1));
+			}
+			else if (getPrefixField().length() > 0)
+			{
+				setPrefixField(getPrefixField().substring(0, getPrefixField().length() - 1));
+			}
+			else if (getAreaField().length() > 0)
+			{
+				setAreaField(getAreaField().substring(0, getAreaField().length() - 1));
+			}
+			else if (getCountryField().length() > 0)
+			{
+				setCountryField(getCountryField().substring(0, getCountryField().length() - 1));
+			}
+			//handleBinderUpdates();
+			controller.testDataEditing();
+			/*
+			if (controller.phoneNum.getLineNumber().length() > 0)
 			{
 				setLineField(getLineField().substring(0, getLineField().length() - 1));
 				controller.phoneNum.setLineNumber(getLineField());
 				//handleBinderUpdates();
 				controller.testDataEditing();
 			}
-			else if (getPrefixField().length() > 0)
+			else if (controller.phoneNum.getPrefixCode().length() > 0)
 			{
 				setPrefixField(getPrefixField().substring(0, getPrefixField().length() - 1));
 				controller.phoneNum.setPrefixCode(getPrefixField());
 				//handleBinderUpdates();
 				controller.testDataEditing();
 			}
-			else if (getAreaField().length() > 0)
+			else if (controller.phoneNum.getAreaCode().length() > 0)
 			{
 				setAreaField(getAreaField().substring(0, getAreaField().length() - 1));
 				controller.phoneNum.setAreaCode(getAreaField());
 				//handleBinderUpdates();
 				controller.testDataEditing();
 			}
-			else if (getCountryField().length() > 0)
+			else if (controller.phoneNum.getCountryCode().length() > 0)
 			{
 				setCountryField(getCountryField().substring(0, getCountryField().length() - 1));
 				controller.phoneNum.setCountryCode(getCountryField());
 				//handleBinderUpdates();
 				controller.testDataEditing();
 			}
+			*/
 		}
 	}
 	
@@ -282,38 +303,60 @@ public class MyUI extends UI {
 	
 	public void keypadPressed(String getButtonPressed) {
 		
+		controller.phoneNum.append(getButtonPressed);
 		if (getCountryField().length() != 1) 
+		{
+			setCountryField(getCountryField() + getButtonPressed);
+		} 
+		else if (getAreaField().length() != 3) 
+		{
+			setAreaField(getAreaField() + getButtonPressed);
+		} 
+		else if (getPrefixField().length() != 3) 
+		{
+			setPrefixField(getPrefixField() + getButtonPressed);
+		} 
+		else if (getLineField().length() != 4)
+		{
+			setLineField(getLineField() + getButtonPressed);
+		}
+		//handleBinderUpdates();
+		controller.testDataEditing();
+		
+		/*
+		if (controller.phoneNum.getCountryCode().length() != 1) 
 		{
 			setCountryField(getCountryField() + getButtonPressed);
 			controller.phoneNum.setCountryCode(getCountryField());
 			//handleBinderUpdates();
 			controller.testDataEditing();
 		} 
-		else if (getAreaField().length() != 3) 
+		else if (controller.phoneNum.getAreaCode().length() != 3) 
 		{
 			setAreaField(getAreaField() + getButtonPressed);
 			controller.phoneNum.setAreaCode(getAreaField());
 			//handleBinderUpdates();
 			controller.testDataEditing();
 		} 
-		else if (getPrefixField().length() != 3) 
+		else if (controller.phoneNum.getPrefixCode().length() != 3) 
 		{
 			setPrefixField(getPrefixField() + getButtonPressed);
 			controller.phoneNum.setPrefixCode(getPrefixField());
 			//handleBinderUpdates();
 			controller.testDataEditing();
 		} 
-		else if (getLineField().length() != 4)
+		else if (controller.phoneNum.getLineNumber().length() != 4)
 		{
 			setLineField(getLineField() + getButtonPressed);
 			controller.phoneNum.setLineNumber(getLineField());
 			//handleBinderUpdates();
 			controller.testDataEditing();
 		}
+		*/
 	}
 	
-	public void changeCallStatus(ClickEvent event) { //can potentially have this method return a Boolean and ditch inCall variable
-		if (event.getButton().getCaption() == startButton.getCaption() && getLineField().length() == 4)
+	public void changeCallStatus(String caption) { //can potentially have this method return a Boolean and ditch inCall variable
+		if (caption == startButton.getCaption() && controller.phoneNum.getFullPhoneNumber().length() == 11)
 		{			
 			//TODO: check the phoneNumber class to make sure this is valid, not the text field
 			inCall = true;
@@ -367,13 +410,13 @@ public class MyUI extends UI {
 	}
 	
 	public void setVolumeDown() {
-		if (Integer.parseInt(volumeDisplay.getValue()) > 0) {
+		if (Integer.parseInt(volumeDisplay.getValue()) > MIN_VOLUME) {
 		volumeDisplay.setValue(Integer.toString(Integer.parseInt(volumeDisplay.getValue()) - 1));
 		}
 	}
 	
 	public void setVolumeUp() {
-		if (Integer.parseInt(volumeDisplay.getValue()) < 10) 
+		if (Integer.parseInt(volumeDisplay.getValue()) < MAX_VOLUME) 
 		{
 		volumeDisplay.setValue(Integer.toString(Integer.parseInt(volumeDisplay.getValue()) + 1));
 		}
