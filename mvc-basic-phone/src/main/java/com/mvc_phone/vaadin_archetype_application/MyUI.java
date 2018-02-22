@@ -33,7 +33,7 @@ import com.vaadin.ui.VerticalLayout;
 @Theme("mytheme")
 public class MyUI extends UI {
 
-	//first line
+	//first line, where the phone number is written to
 	final static Label beginningLabel = new Label("+");
 	final TextField countryCodeField = new TextField();
 	final static Label labelSeparator1 = new Label("- (");
@@ -44,9 +44,11 @@ public class MyUI extends UI {
 	final TextField lineNumberField = new TextField();		
 	final Button buttonDelete = new Button("DELETE THIS");
 	
-	//second line
+	//second line, which handles the call status
 	final Button startButton = new Button("CALL");
 	final Button endButton = new Button("END");
+	final Label callStatus = new Label("Standing by...");
+	
 	
 	//number grid
 	//IMPORTANT: variable names MUST be consistent ("button 1", " button 2")
@@ -71,6 +73,9 @@ public class MyUI extends UI {
 	//private MyUI myUI;
 	private Model model;
 	private Controller controller;
+	
+	//call status
+	private Boolean inCall = false;
 	
 	//Binder
 	Binder<PhoneNumber> binder = new Binder<>();
@@ -116,7 +121,7 @@ public class MyUI extends UI {
 		final HorizontalLayout DisplayAndDelete = new HorizontalLayout(beginningLabel, countryCodeField,
 				labelSeparator1, areaCodeField, labelSeparator2, prefixCodeField, labelSeparator3, lineNumberField,
 				buttonDelete);		
-		final HorizontalLayout CallAndCancel = new HorizontalLayout(startButton, endButton);
+		final HorizontalLayout CallAndCancel = new HorizontalLayout(startButton, endButton, callStatus);
 
 		final HorizontalLayout numberRow1 = new HorizontalLayout(button1, button2, button3);
 		final HorizontalLayout numberRow2 = new HorizontalLayout(button4, button5, button6);
@@ -155,11 +160,11 @@ public class MyUI extends UI {
 		});
 		
 		startButton.addClickListener(e -> {
-			
+			phoneUI(e);
 		});
 		
 		endButton.addClickListener(e -> {
-		
+			phoneUI(e);
 		});
 		  
 		button1.addClickListener(e -> {		
@@ -221,21 +226,32 @@ public class MyUI extends UI {
 	}
 	
 	private void initBinder() {
-		binder.forField(countryCodeField).bind(PhoneNumber::getCountryCode, PhoneNumber::setCountryCode);
-		binder.forField(areaCodeField).bind(PhoneNumber::getAreaCode, PhoneNumber::setAreaCode);
-		binder.forField(prefixCodeField).bind(PhoneNumber::getPrefixCode, PhoneNumber::setPrefixCode);
-		binder.forField(lineNumberField).bind(PhoneNumber::getLineNumber, PhoneNumber::setLineNumber);				
+		binder.bind(countryCodeField, PhoneNumber::getCountryCode, PhoneNumber::setCountryCode);
+		binder.bind(areaCodeField, PhoneNumber::getAreaCode, PhoneNumber::setAreaCode);
+		binder.bind(prefixCodeField, PhoneNumber::getPrefixCode, PhoneNumber::setPrefixCode);
+		binder.bind(lineNumberField, PhoneNumber::getLineNumber, PhoneNumber::setLineNumber);				
 	}
-	
+	//////////////////////////////////////////////////////////////////////////////////////////////////
 	public void determineDeletion() {
-		if (getLineField().length() > 0)
-			setLineField(getLineField().substring(0, getLineField().length() - 1));
-		else if (getPrefixField().length() > 0)
-			setPrefixField(getPrefixField().substring(0, getPrefixField().length() - 1));
-		else if (getAreaField().length() > 0)
-			setAreaField(getAreaField().substring(0, getAreaField().length() - 1));
-		else if (getCountryField().length() > 0)
-			setCountryField(getCountryField().substring(0, getCountryField().length() - 1));
+		if (!inCall)
+		{
+			if (getLineField().length() > 0)
+			{
+				setLineField(getLineField().substring(0, getLineField().length() - 1));
+			}
+			else if (getPrefixField().length() > 0)
+			{
+				setPrefixField(getPrefixField().substring(0, getPrefixField().length() - 1));
+			}
+			else if (getAreaField().length() > 0)
+			{
+				setAreaField(getAreaField().substring(0, getAreaField().length() - 1));
+			}
+			else if (getCountryField().length() > 0)
+			{
+				setCountryField(getCountryField().substring(0, getCountryField().length() - 1));
+			}
+		}
 	}
 	
 	public String getButtonPressed(ClickEvent event) {
@@ -244,17 +260,42 @@ public class MyUI extends UI {
 	
 	public void keypadPressed(String getButtonPressed) {
 		
-		if (getCountryField().length() != 1) {
+		if (getCountryField().length() != 1) 
+		{
 			setCountryField(getCountryField() + getButtonPressed);
-		} else if (getAreaField().length() != 3) {
+		} 
+		else if (getAreaField().length() != 3) 
+		{
 			setAreaField(getAreaField() + getButtonPressed);
-		} else if (getPrefixField().length() != 3) {
+		} 
+		else if (getPrefixField().length() != 3) 
+		{
 			setPrefixField(getPrefixField() + getButtonPressed);
-		} else if (getLineField().length() != 4){
+		} 
+		else if (getLineField().length() != 4)
+		{
 			setLineField(getLineField() + getButtonPressed);
 		}
 	}
-		
+	
+	public void phoneUI(ClickEvent event) { //can potentially have this method return a Boolean and ditch inCall variable
+		if (event.getButton().getCaption() == startButton.getCaption())
+		{			
+			//TODO: check the phoneNumber class to make sure this is valid, not the text field
+			if (getLineField().length() == 4)
+			{
+				inCall = true;
+				callStatus.setValue("Calling...");
+			}
+		}
+		else if (event.getButton().getCaption() == endButton.getCaption())
+		{
+			System.out.println("CALL END");
+			inCall = false;
+			callStatus.setValue("Standing by...");
+		}
+	}
+	
 	public String getCountryField() {
 		return countryCodeField.getValue();
 	}
@@ -298,7 +339,8 @@ public class MyUI extends UI {
 	}
 	
 	public void setVolumeUp() {
-		if (Integer.parseInt(volumeDisplay.getValue()) < 10) {
+		if (Integer.parseInt(volumeDisplay.getValue()) < 10) 
+		{
 		volumeDisplay.setValue(Integer.toString(Integer.parseInt(volumeDisplay.getValue()) + 1));
 		}
 	}
