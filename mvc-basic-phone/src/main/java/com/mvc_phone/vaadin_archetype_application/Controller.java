@@ -3,7 +3,7 @@ package com.mvc_phone.vaadin_archetype_application;
 public class Controller {
 
     private Model model;
-    private PhoneNumber phoneNum = new PhoneNumber();
+    protected PhoneNumber phoneNum;
        
     //MINIMAL CONTROLLER
     //TODO: Only thing to do with the controller is update the data fields
@@ -12,37 +12,34 @@ public class Controller {
     	
         this.model = model;
         
-        //TODO: figure out constructor
+        phoneNum = new PhoneNumber("1");        
         
-        //tests
-                
-        System.out.println("in the controller uhhh");
-        System.out.println(phoneNum.getCountryCode());
-        System.out.println(phoneNum.getAreaCode());
-        System.out.println(phoneNum.getPrefixCode());
-        phoneNum.setCountryCode("4");
-        System.out.println("NOW: " + phoneNum.getCountryCode());
-        phoneNum.setAreaCode("423");
-        System.out.println("AGAIN: " + phoneNum.getAreaCode());
-        phoneNum.snip();
-        phoneNum.append("6");
-        System.out.println(phoneNum.getCountryCode() + " " + phoneNum.getAreaCode());
-        
-        /*
-        System.out.println("Setting volume down... " + myUI.getVolume());
-        myUI.setVolumeDown();
-        System.out.println("Volume set down! " +  myUI.getVolume());
-        */
-        
-
-        //myUI.setVolumeDown();
-       // myUI.setAreaField(phoneNum.getAreaCode());
-        //System.out.println("VOLUME: " + myUI.getVolume());
-        //System.out.println("Area field: " + myUI.getAreaField());
-       
+        System.out.println("in the controller uhhh");      
         //TODO: possibly implement an observer interface with an update() method 
     }
+    
+    public void testDataEditing() {
+    	System.out.println("COUNTRY CODE: " + phoneNum.getCountryCode());
+    	System.out.println("AREA CODE: " + phoneNum.getAreaCode());
+    	System.out.println("PREFIX CODE: " + phoneNum.getPrefixCode());
+    	System.out.println("LINE NUMBER: " + phoneNum.getLineNumber());    	
+    }
 	
+    public void editCountryCode() {
+    	phoneNum.getCountryCode();
+    }
+    
+    public void editAreaCode() {
+    	phoneNum.getAreaCode();
+    }
+    
+    public void editPrefixCode() {
+    	phoneNum.getPrefixCode();
+    }
+    
+    public void editLineNumber() {
+    	phoneNum.getLineNumber();
+    }
 	
 	
 }

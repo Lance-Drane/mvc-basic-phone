@@ -12,6 +12,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Slider;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -47,8 +48,10 @@ public class MyUI extends UI {
 	//second line, which handles the call status
 	final Button startButton = new Button("CALL");
 	final Button endButton = new Button("END");
-	final Label callStatus = new Label("Standing by...");
-	
+	final static String noInCall = "Standing by...";
+	final static String yesInCall = "Calling...";
+	final Label callStatus = new Label(noInCall);
+	private Boolean inCall = false;
 	
 	//number grid
 	//IMPORTANT: variable names MUST be consistent ("button 1", " button 2")
@@ -70,15 +73,17 @@ public class MyUI extends UI {
 	final Label volumeDisplay = new Label("5");
 	final Button volumeUp = new Button("/|\\");
 	
-	//private MyUI myUI;
+	//volume slider
+	Slider volumeSlider = new Slider("Volume", 0, 10);
+	
 	private Model model;
 	private Controller controller;
-	
-	//call status
-	private Boolean inCall = false;
-	
+		
 	//Binder
 	Binder<PhoneNumber> binder = new Binder<>();
+	
+	//testing the data class here, remove it later
+	//PhoneNumber phoneNum;
 	
 	//this is kind of Vaadin's main method
 	@Override
@@ -89,7 +94,8 @@ public class MyUI extends UI {
 		initListeners();
 		initBinder();
 		System.out.println("Start?");
-        			
+        
+		//TODO: temporary testing block
 	}
 		
 	public MyUI() {
@@ -109,14 +115,16 @@ public class MyUI extends UI {
 		final VerticalLayout layout = new VerticalLayout();
 
 		// make it legible and not huge, that's it
+		
+		int fieldHeight = 30;		
 		countryCodeField.setWidth(40, Unit.PIXELS);
-		countryCodeField.setHeight(30, Unit.PIXELS);
+		countryCodeField.setHeight(fieldHeight, Unit.PIXELS);
 		areaCodeField.setWidth(60, Unit.PIXELS);
-		areaCodeField.setHeight(30, Unit.PIXELS);
+		areaCodeField.setHeight(fieldHeight, Unit.PIXELS);
 		prefixCodeField.setWidth(60, Unit.PIXELS);
-		prefixCodeField.setHeight(30, Unit.PIXELS);
+		prefixCodeField.setHeight(fieldHeight, Unit.PIXELS);
 		lineNumberField.setWidth(80, Unit.PIXELS);
-		lineNumberField.setHeight(30, Unit.PIXELS);
+		lineNumberField.setHeight(fieldHeight, Unit.PIXELS);
 
 		final HorizontalLayout DisplayAndDelete = new HorizontalLayout(beginningLabel, countryCodeField,
 				labelSeparator1, areaCodeField, labelSeparator2, prefixCodeField, labelSeparator3, lineNumberField,
@@ -130,8 +138,9 @@ public class MyUI extends UI {
 		final VerticalLayout keypad = new VerticalLayout(numberRow1, numberRow2, numberRow3, numberRow4);
 		
 		final HorizontalLayout volumeLayout = new HorizontalLayout(volumeDown, volumeDisplay, volumeUp);
+		final HorizontalLayout volumeLayout2 = new HorizontalLayout(volumeSlider);
 		
-		layout.addComponents(DisplayAndDelete, CallAndCancel, keypad, volumeLayout);
+		layout.addComponents(DisplayAndDelete, CallAndCancel, keypad, volumeLayout, volumeLayout2);
 		setContent(layout);
 				
 	}
@@ -145,6 +154,7 @@ public class MyUI extends UI {
 		//areaCodeField.setValue("865"); //perhaps implement logic determining a default value?
 		prefixCodeField.setReadOnly(true);
 		lineNumberField.setReadOnly(true);
+		volumeSlider.setValue((volumeSlider.getMin() + volumeSlider.getMax())/2);
 		
 	}
 	
@@ -160,11 +170,11 @@ public class MyUI extends UI {
 		});
 		
 		startButton.addClickListener(e -> {
-			phoneUI(e);
+			changeCallStatus(e);
 		});
 		
 		endButton.addClickListener(e -> {
-			phoneUI(e);
+			changeCallStatus(e);
 		});
 		  
 		button1.addClickListener(e -> {		
@@ -238,18 +248,30 @@ public class MyUI extends UI {
 			if (getLineField().length() > 0)
 			{
 				setLineField(getLineField().substring(0, getLineField().length() - 1));
+				controller.phoneNum.setLineNumber(getLineField());
+				//handleBinderUpdates();
+				controller.testDataEditing();
 			}
 			else if (getPrefixField().length() > 0)
 			{
 				setPrefixField(getPrefixField().substring(0, getPrefixField().length() - 1));
+				controller.phoneNum.setPrefixCode(getPrefixField());
+				//handleBinderUpdates();
+				controller.testDataEditing();
 			}
 			else if (getAreaField().length() > 0)
 			{
 				setAreaField(getAreaField().substring(0, getAreaField().length() - 1));
+				controller.phoneNum.setAreaCode(getAreaField());
+				//handleBinderUpdates();
+				controller.testDataEditing();
 			}
 			else if (getCountryField().length() > 0)
 			{
 				setCountryField(getCountryField().substring(0, getCountryField().length() - 1));
+				controller.phoneNum.setCountryCode(getCountryField());
+				//handleBinderUpdates();
+				controller.testDataEditing();
 			}
 		}
 	}
@@ -263,37 +285,49 @@ public class MyUI extends UI {
 		if (getCountryField().length() != 1) 
 		{
 			setCountryField(getCountryField() + getButtonPressed);
+			controller.phoneNum.setCountryCode(getCountryField());
+			//handleBinderUpdates();
+			controller.testDataEditing();
 		} 
 		else if (getAreaField().length() != 3) 
 		{
 			setAreaField(getAreaField() + getButtonPressed);
+			controller.phoneNum.setAreaCode(getAreaField());
+			//handleBinderUpdates();
+			controller.testDataEditing();
 		} 
 		else if (getPrefixField().length() != 3) 
 		{
 			setPrefixField(getPrefixField() + getButtonPressed);
+			controller.phoneNum.setPrefixCode(getPrefixField());
+			//handleBinderUpdates();
+			controller.testDataEditing();
 		} 
 		else if (getLineField().length() != 4)
 		{
 			setLineField(getLineField() + getButtonPressed);
+			controller.phoneNum.setLineNumber(getLineField());
+			//handleBinderUpdates();
+			controller.testDataEditing();
 		}
 	}
 	
-	public void phoneUI(ClickEvent event) { //can potentially have this method return a Boolean and ditch inCall variable
-		if (event.getButton().getCaption() == startButton.getCaption())
+	public void changeCallStatus(ClickEvent event) { //can potentially have this method return a Boolean and ditch inCall variable
+		if (event.getButton().getCaption() == startButton.getCaption() && getLineField().length() == 4)
 		{			
 			//TODO: check the phoneNumber class to make sure this is valid, not the text field
-			if (getLineField().length() == 4)
-			{
-				inCall = true;
-				callStatus.setValue("Calling...");
-			}
+			inCall = true;
+			callStatus.setValue(yesInCall);
 		}
-		else if (event.getButton().getCaption() == endButton.getCaption())
+		else
 		{
-			System.out.println("CALL END");
 			inCall = false;
-			callStatus.setValue("Standing by...");
+			callStatus.setValue(noInCall);
 		}
+	}
+	
+	public void handleBinderUpdates() {
+		binder.readBean(controller.phoneNum);
 	}
 	
 	public String getCountryField() {
