@@ -25,6 +25,7 @@ public class Controller {
     	System.out.println("LINE NUMBER: " + phoneNum.getLineNumber());    	
     }
 	
+    /*
     public void editCountryCode() {
     	phoneNum.getCountryCode();
     }
@@ -40,6 +41,6 @@ public class Controller {
     public void editLineNumber() {
     	phoneNum.getLineNumber();
     }
-	
+	*/
 	
 }

@@ -35,46 +35,46 @@ import com.vaadin.ui.VerticalLayout;
 public class MyUI extends UI {
 
 	//first line, where the phone number is written to
-	final static Label beginningLabel = new Label("+");
-	final TextField countryCodeField = new TextField();
-	final static Label labelSeparator1 = new Label("- (");
-	final TextField areaCodeField = new TextField();
-	final static Label labelSeparator2 = new Label(") -");
-	final TextField prefixCodeField = new TextField();
-	final static Label labelSeparator3 = new Label("-");
-	final TextField lineNumberField = new TextField();		
-	final Button buttonDelete = new Button("DELETE THIS");
+	final static private Label beginningLabel = new Label("+");
+	final private TextField countryCodeField = new TextField();
+	final static private Label labelSeparator1 = new Label("- (");
+	final private TextField areaCodeField = new TextField();
+	final static private Label labelSeparator2 = new Label(") -");
+	final private TextField prefixCodeField = new TextField();
+	final static private Label labelSeparator3 = new Label("-");
+	final private TextField lineNumberField = new TextField();		
+	final private Button buttonDelete = new Button("DELETE THIS");
 	
 	//second line, which handles the call status
-	final Button startButton = new Button("CALL");
-	final Button endButton = new Button("END");
-	final static String noInCall = "Standing by...";
-	final static String yesInCall = "Calling...";
-	final Label callStatus = new Label(noInCall);
+	final private Button startButton = new Button("CALL");
+	final private Button endButton = new Button("END");
+	final static private String noInCall = "Standing by...";
+	final static private String yesInCall = "Calling...";
+	final private Label callStatus = new Label(noInCall);
 	private Boolean inCall = false;
 	
 	//number grid
 	//IMPORTANT: variable names MUST be consistent ("button 1", " button 2")
-	final Button button1 = new Button("1");
-	final Button button2 = new Button("2");
-	final Button button3 = new Button("3");
-	final Button button4 = new Button("4");
-	final Button button5 = new Button("5");
-	final Button button6 = new Button("6");
-	final Button button7 = new Button("7");
-	final Button button8 = new Button("8");
-	final Button button9 = new Button("9");
-	final Button buttonStar = new Button("*");
-	final Button button0 = new Button("0");
-	final Button buttonPound = new Button("#");
+	final private Button button1 = new Button("1");
+	final private Button button2 = new Button("2");
+	final private Button button3 = new Button("3");
+	final private Button button4 = new Button("4");
+	final private Button button5 = new Button("5");
+	final private Button button6 = new Button("6");
+	final private Button button7 = new Button("7");
+	final private Button button8 = new Button("8");
+	final private Button button9 = new Button("9");
+	final private Button buttonStar = new Button("*");
+	final private Button button0 = new Button("0");
+	final private Button buttonPound = new Button("#");
 	
 	//volume controls
-	final Button volumeDown = new Button("\\|/");
-	final Label volumeDisplay = new Label("5");
-	final Button volumeUp = new Button("/|\\");
+	final private Button volumeDown = new Button("\\|/");
+	final private Label volumeDisplay = new Label("5");
+	final private Button volumeUp = new Button("/|\\");
 	
 	//volume slider
-	Slider volumeSlider = new Slider("Volume", 0, 10);
+	final private Slider volumeSlider = new Slider("Volume", 0, 10);
 	
 	private Model model;
 	private Controller controller;
