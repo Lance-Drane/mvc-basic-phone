@@ -72,13 +72,13 @@ public class MyUI extends UI {
 	final private Button volumeDown = new Button("\\|/");
 	final private Label volumeDisplay = new Label("5");
 	final private Button volumeUp = new Button("/|\\");
-	final private int MIN_VOLUME = 0;
-	final private int MAX_VOLUME = 10;
+	final private short MIN_VOLUME = 0;
+	final private short MAX_VOLUME = 10;
 	
 	//volume slider
 	final private Slider volumeSlider = new Slider("Volume", MIN_VOLUME, MAX_VOLUME);
 	
-	private Model model;
+	//private Model model;
 	private Controller controller;
 		
 	//Binder
@@ -92,7 +92,7 @@ public class MyUI extends UI {
 		initModifications(); //
 		initListeners();
 		initBinder();
-		System.out.println("Start?");
+		//System.out.println("Start?");
 		controller.testDataEditing();
         
 		//TODO: temporary testing block
@@ -100,11 +100,11 @@ public class MyUI extends UI {
 		
 	public MyUI() {
 		
-		System.out.println("Now I'm in the constructor!");
-		model = new Model();
-		System.out.println("First constructor executed");
-		controller = new Controller(model);
-		System.out.println("Second constructor executed");
+		//System.out.println("Now I'm in the constructor!");
+		//model = new Model();
+		//System.out.println("First constructor executed");
+		controller = new Controller();
+		//System.out.println("Second constructor executed");
 		
 	}
 	
@@ -114,7 +114,7 @@ public class MyUI extends UI {
 		final VerticalLayout layout = new VerticalLayout();
 
 		// make it legible and not huge, that's it		
-		final int FIELD_HEIGHT = 30;		
+		final short FIELD_HEIGHT = 30;		
 		countryCodeField.setWidth(40, Unit.PIXELS);
 		countryCodeField.setHeight(FIELD_HEIGHT, Unit.PIXELS);
 		areaCodeField.setWidth(60, Unit.PIXELS);
@@ -177,6 +177,10 @@ public class MyUI extends UI {
 			changeCallStatus(getButtonPressed(e));
 		});
 		  
+		
+		//maybe put buttons in an array list and iterate through the array list
+		//
+		
 		button1.addClickListener(e -> {		
 			keypadPressed(getButtonPressed(e));	
 		});

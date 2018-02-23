@@ -11,13 +11,11 @@ public class PhoneNumber {
 
 	//default constructor, use for 11 digits entered
 	PhoneNumber() {
-		//countryCode = "1";
-		//areaCode = "865";
+
 	}
 	
 	//constructor for 10 digits
 	PhoneNumber(String countryCode) {
-		//countryCode = "1";
 		this.countryCode = countryCode;
 	}
 	

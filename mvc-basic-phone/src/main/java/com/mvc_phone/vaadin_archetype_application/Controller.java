@@ -2,15 +2,16 @@ package com.mvc_phone.vaadin_archetype_application;
 
 public class Controller {
 
-    private Model model;
+    //private Model model;
     protected PhoneNumber phoneNum;
        
     //MINIMAL CONTROLLER
     //TODO: Only thing to do with the controller is update the data fields
     
-    public Controller(Model model) {
+    //public Controller(Model model) {
+    public Controller() {
     	
-        this.model = model;
+        //this.model = model;
         
         createNewPhoneNumberOneArg();
                 
@@ -74,23 +75,5 @@ public class Controller {
 			phoneNum.snipCountryCode();
 		}		
     }
-    
-    /*
-    public void editCountryCode() {
-    	phoneNum.getCountryCode();
-    }
-    
-    public void editAreaCode() {
-    	phoneNum.getAreaCode();
-    }
-    
-    public void editPrefixCode() {
-    	phoneNum.getPrefixCode();
-    }
-    
-    public void editLineNumber() {
-    	phoneNum.getLineNumber();
-    }
-	*/
 	
 }

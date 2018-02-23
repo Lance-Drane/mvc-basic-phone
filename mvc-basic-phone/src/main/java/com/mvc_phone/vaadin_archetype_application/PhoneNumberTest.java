@@ -14,8 +14,9 @@ class PhoneNumberTest {
 	
 	//MyUI myUI = new MyUI();
 	
-	Model model = new Model();
-	Controller controller = new Controller(model);
+	//Model model = new Model();
+	//Controller controller = new Controller(model);
+	Controller controller = new Controller();
 	MyUI myUI = new MyUI();
 	
 	@Test
